@@ -1,63 +1,110 @@
 let display = document.getElementById("display");
 
-function appendValue(value){
-    display.value += value;
-}
+let firstNumber = "";
+let secondNumber = "";
+let operator = "";
 
-function clearDisplay(){
-    display.value = "";
-}
+function appendValue(value) {
 
-function deleteLast(){
-    display.value = display.value.slice(0,-1);
-}
+    
+    if (
+        value == "+" ||
+        value == "-" ||
+        value == "*" ||
+        value == "/"
+    ) {
 
-function calculate(){
+        firstNumber = display.value;
 
-    try{
+        operator = value;
 
-        if(display.value==""){
-            return;
+       
+        display.value = firstNumber + " " + operator + " ";
+
+    }
+
+    else {
+
+        // If operator has been selected
+        if (operator != "") {
+
+            // Get only the second number
+            secondNumber = display.value
+                .replace(firstNumber + " " + operator + " ", "");
+
+            display.value += value;
+
         }
 
-        display.value = eval(display.value);
+        else {
+
+            display.value += value;
+
+        }
 
     }
-    catch{
-        display.value="Error";
-    }
-
 }
 
 
-// Keyboard Support
+function calculate() {
 
-document.addEventListener("keydown",function(event){
+    // Get second number
+    secondNumber = display.value
+        .replace(firstNumber + " " + operator + " ", "");
 
-    const key = event.key;
+    let num1 = Number(firstNumber);
+    let num2 = Number(secondNumber);
 
-    if((key>='0' && key<='9') ||
-       key==='+' ||
-       key==='-' ||
-       key==='*' ||
-       key==='/' ||
-       key==='.' ||
-       key==='%'){
+    let result;
 
-        appendValue(key);
+
+    if (operator == "+") {
+
+        result = num1 + num2;
+
     }
 
-    else if(key==="Enter"){
-        event.preventDefault();
-        calculate();
+    else if (operator == "-") {
+
+        result = num1 - num2;
+
     }
 
-    else if(key==="Backspace"){
-        deleteLast();
+    else if (operator == "*") {
+
+        result = num1 * num2;
+
     }
 
-    else if(key==="Escape"){
-        clearDisplay();
+    else if (operator == "/") {
+
+        result = num1 / num2;
+
     }
 
-});
+
+    display.value = result;
+
+    firstNumber = "";
+    secondNumber = "";
+    operator = "";
+}
+
+
+function clearDisplay() {
+
+    display.value = "";
+
+    firstNumber = "";
+
+    secondNumber = "";
+
+    operator = "";
+}
+
+
+function deleteLast() {
+
+    display.value = display.value.slice(0, -1);
+
+}
