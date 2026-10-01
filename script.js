@@ -25,10 +25,10 @@ function appendValue(value) {
 
     else {
 
-        // If operator has been selected
+        
         if (operator != "") {
 
-            // Get only the second number
+            
             secondNumber = display.value
                 .replace(firstNumber + " " + operator + " ", "");
 
@@ -48,7 +48,7 @@ function appendValue(value) {
 
 function calculate() {
 
-    // Get second number
+    
     secondNumber = display.value
         .replace(firstNumber + " " + operator + " ", "");
 
